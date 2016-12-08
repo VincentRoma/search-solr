@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div faurecia-search></div>
+        </div>
+        <div class="col-md-12" ng-if="num_results && entities_list.length">
+            <span class="label label-success">{{num_results}} results found</span>
+            <span class="label label-primary">in {{time_to_get}} ms</span>
+            <div class="btn-group" role="group" style="float:right">
+                <button type="button" class="btn btn-default"
+                    ng-class="{'active': list_mod.row}"
+                    ng-click="toggle_view()"
+                >
+                    <i class="fa fa-table" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-default"
+                    ng-class="{'active': list_mod.big}"
+                    ng-click="toggle_view()"
+                >
+                    <i class="fa fa-th-list" aria-hidden="true"></i>
+                </button>
+            </div>
+            <hr>
+        </div>
+        <div class="row col-md-12 faurecia-results" ng-show="list_mod.row && entities_list.length">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="active">
+                        <td>Timestamp <i class="fa fa-caret-down" aria-hidden="true"></i></td>
+                        <td>Batch <i class="fa fa-caret-down" aria-hidden="true"></i></td>
+                        <td>Identifier <i class="fa fa-caret-down" aria-hidden="true"></i></td>
+                        <td>Step <i class="fa fa-caret-down" aria-hidden="true"></i></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in entities_list" href="" ng-click="goToElement(row.ref)">
+                        <a href=""><td>{{row.date}}</td><td>{{row.ref}}</td><td>{{row.ref3}}</td><td>{{row.step}}</td></a>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row col-md-12" ng-show="list_mod.big">
+            <div ng-class="{'col-md-6':displaying, 'col-md-12':!displaying}">
+                <div class="media" ng-repeat="entity in entities_list" ng-click="display(entity)">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect width="100%" height="100%" fill="grey"/><text x="75" y="80" font-size="20" font="Verdana, sans-serif" fill="white" text-anchor="middle">150 x 150</text></svg>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{entity.ref2}}</h4>
+                        <ul>
+                            <li>Timestamp: {{entity.date}}</li>
+                            <li>Batch: {{entity.ref}}</li>
+                            <li>Identifier: {{entity.ref3}}</li>
+                            <li>Step: {{entity.step}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="displaying">
+                <div class="row">
+                    <div class="col-md-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="150"><rect width="100%" height="100%" fill="grey"/><text x="75" y="80" font-size="20" font="Verdana, sans-serif" fill="white" text-anchor="middle">300 x 150</text></svg>
+                    </div>
+                    <div class="col-md-12">
+                        <h4 class="media-heading">{{current_entity.ref2}}</h4>
+                        <p>Timestamp: {{current_entity.date}}</p>
+                        <p>Batch: {{current_entity.ref}}</p>
+                        <p>Identifier: {{current_entity.ref3}}</p>
+                        <p>Step: {{current_entity.step}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
